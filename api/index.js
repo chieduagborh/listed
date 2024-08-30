@@ -18,22 +18,28 @@ module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, revision, Authorization');
 
+    // Extract data from request body
     const { data } = req.body;
 
-    try {
-      const response = await axios.post('https://a.klaviyo.com/api/profile-import/', data, {
-        headers: {
-          'Authorization': `Klaviyo-API-Key ${klaviyoApiKey}`,
-          'Content-Type': 'application/json',
-          'accept': 'application/json',
-          'revision': '2024-07-15'
-        },
-      });
+    // Configure Axios request options
+    const options = {
+      method: 'POST',
+      url: 'https://a.klaviyo.com/api/profile-import/',
+      headers: {
+        'accept': 'application/json',
+        'revision': '2024-07-15',
+        'content-type': 'application/json',
+        'Authorization': `Klaviyo-API-Key ${klaviyoApiKey}`
+      },
+      data: data // Use the data from the request body
+    };
 
+    try {
+      const response = await axios.request(options);
       res.status(response.status).json(response.data);
     } catch (error) {
       if (error.response) {
-        console.error('Error over errrr:', error.response ? error.response.data : error.message);
+        console.error('Error details:', error.response ? error.response.data : error.message);
         res.status(error.response.status).json(error.response.data);
       } else {
         res.status(500).json({ error: 'Internal Server Error' });
