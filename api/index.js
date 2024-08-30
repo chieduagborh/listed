@@ -1,11 +1,27 @@
 const axios = require('axios');
 
 module.exports = async (req, res) => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.status(200).end();
+    return;
+  }
+
+  // Handle POST request
   if (req.method === 'POST') {
     const klaviyoApiKey = process.env.KLAVIYO_API_KEY;
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    const { data } = req.body;
+
     try {
-      const response = await axios.post('https://a.klaviyo.com/api/profile-import/', req.body, {
+      const response = await axios.post('https://a.klaviyo.com/api/profile-import/', data, {
         headers: {
           'Authorization': `Klaviyo-API-Key ${klaviyoApiKey}`,
           'Content-Type': 'application/json',
