@@ -21,6 +21,8 @@ module.exports = async (req, res) => {
     // Extract data from request body
     const { data } = req.body;
 
+    console.log('Received data:', JSON.stringify(data, null, 2));
+    
     // Configure Axios request options
     const options = {
       method: 'POST',
