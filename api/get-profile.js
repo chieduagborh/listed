@@ -14,10 +14,11 @@ module.exports = async (req, res) => {
   if (req.method === 'GET') {
     const klaviyoApiKey = process.env.KLAVIYO_API_KEY;
     const email = req.query.email; // Assuming you pass the email as a query parameter
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log('email from vercel', email);
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.listedmembersclub.com');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, revision, Authorization');
+
 
     try {
        
