@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     const klaviyoApiKey = process.env.KLAVIYO_API_KEY;
     const email = req.query.email; // Assuming you pass the email as a query parameter
     const encodedEmail = encodeURIComponent(email);
-    const url = `https://a.klaviyo.com/api/profiles/?filter=equals(email,"${encodedEmail}")`;
+    const url = `https://a.klaviyo.com/api/profiles?filter=equals(email,"${encodedEmail}")`;
 
     console.log('url from vercel', url);
     res.setHeader('Access-Control-Allow-Origin', 'https://www.listedmembersclub.com');
