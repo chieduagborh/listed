@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, revision, Authorization');
 
     const { data } = req.body;
 
@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
       res.status(response.status).json(response.data);
     } catch (error) {
       if (error.response) {
+        console.error('Error over errrr:', error.response ? error.response.data : error.message);
         res.status(error.response.status).json(error.response.data);
       } else {
         res.status(500).json({ error: 'Internal Server Error' });
