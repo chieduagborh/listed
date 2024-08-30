@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
     try {
        
-      const response = await axios.get(`https://a.klaviyo.com/api/profiles/?filter=equals(email,${email})`, {
+      const response = await axios.get(url, {
         headers: {
           'Authorization': `Klaviyo-API-Key ${klaviyoApiKey}`,
           'Content-Type': 'application/json',
