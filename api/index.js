@@ -21,8 +21,9 @@ module.exports = async (req, res) => {
     // Extract data from request body
     const { data } = req.body;
 
-    console.log('Received data:', JSON.stringify(data, null, 2));
+    console.log('here in vercel', data);
     
+
     // Configure Axios request options
     const options = {
       method: 'POST',
@@ -33,7 +34,15 @@ module.exports = async (req, res) => {
         'content-type': 'application/json',
         'Authorization': `Klaviyo-API-Key ${klaviyoApiKey}`
       },
-      data: data // Use the data from the request body
+      data: {
+        data: {
+          type: 'profile',
+          attributes: {
+            email: data.attributes.email,
+            properties: data.attributes.properties
+          }
+        }
+      }
     };
 
     try {
