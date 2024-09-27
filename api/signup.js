@@ -16,7 +16,21 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 module.exports = async (req, res) => {
+
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, revision, Authorization');
+        res.status(200).end();
+        return;
+      }
+
   if (req.method === 'POST') {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, revision, Authorization');
+    
     const { email, password } = req.body;
 
     try {
